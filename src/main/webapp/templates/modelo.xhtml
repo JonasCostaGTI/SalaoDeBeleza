@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Salão de Beleza</title>
+	<h:outputScript library="js" name="scripts.js" />
+	<h:outputStylesheet library="css" name="estilos.css" />
+</h:head>
+<h:body>
+
+	<p:growl id="mensagem" />
+
+	<div id="geral">
+
+		<div id="topo" class="divTopo">
+			<p:graphicImage library="images" name="natalia_coelho.png"/>
+		</div>
+
+		<div id="cabecalho" class="divCabecalho">
+			<h:form id="formMenu">
+
+				<p:menubar>
+					<p:submenu label="Arquivo">
+						<p:menuitem value="Sair" />
+					</p:submenu>
+
+					<p:submenu label="Cadastro">
+						<p:menuitem value="Fabricante" url="/pages/fabricantes.xhtml" />
+						<p:menuitem value="Produto" url="/pages/produtos.xhtml"/>
+						<p:menuitem value="Cliente" url="/pages/clientes.xhtml" />
+						<p:menuitem value="Funcionário" />
+						<p:menuitem value="Usuário" />
+					</p:submenu>
+
+					<p:submenu label="Pesquisa">
+						<p:menuitem value="Pesquisar Produto" />
+						<p:menuitem value="Pesquisar Fabricante"  />
+					</p:submenu>
+					
+					<p:submenu label="Agendamento de Servico">
+						<p:menuitem value="Calendario" url="/pages/horarios.xhtml" />
+					</p:submenu>
+
+					<p:submenu label="Movimentações">
+						<p:menuitem value="Venda" />
+					</p:submenu>
+					<p:submenu label="Ajuda">
+						<p:menuitem value="Sobre" />
+					</p:submenu>
+				</p:menubar>
+			</h:form>
+		</div>
+
+		<div id="conteudo">
+			<ui:insert name="conteudo" />
+		</div>
+	</div>
+
+
+</h:body>
+</html>

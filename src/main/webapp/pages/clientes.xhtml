@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" template="/templates/modelo.xhtml">
+
+	<ui:define name="conteudo">
+
+		<h:form id="formListagem">
+
+			<!-- Listagem de Clientes -->
+			<p:panel header="Clientes Cadastrados">
+				<p:dataTable id="tabela" emptyMessage="Nao ha registros cadastrados"
+					value="#{clienteBean.clientes}" var="cliente">
+
+					<f:facet name="footer">
+						<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+							actionListener="#{clienteBean.novo}"
+							update=":mensagem :formCadastro:panelGridCadastro">
+
+							<!-- reset do ajax -->
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						</p:commandButton>
+					</f:facet>
+
+					<p:column headerText="Nome">
+						<h:outputText value="#{cliente.nome}" />
+					</p:column>
+
+					<p:column headerText="Email">
+						<h:outputText value="#{cliente.email}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Telefone">
+						<h:outputText value="#{cliente.telefone}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="CPF">
+						<h:outputText value="#{cliente.cpf}" />
+					</p:column>
+
+
+
+
+					<p:column headerText="Opcoes: " width="100">
+
+						<!-- botao excluir -->
+						<p:commandButton icon="ui-icon-trash">
+
+							<p:confirm header="Confirmacao" message="Deseja excluir?"
+								icon="ui-icon-alert" />
+
+							<f:attribute name="clienteSelecionado" value="" />
+						</p:commandButton>
+
+
+
+						<!-- botao editar -->
+						<p:commandButton icon="ui-icon-pencil"
+							oncomplete="PF('dialogo').show();">
+
+							<!-- reset do ajax -->
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+
+							<!-- pega cidade selecionada e envia para o bean -->
+							<f:attribute name="clienteSelecionado" value="" />
+						</p:commandButton>
+
+					</p:column>
+				</p:dataTable>
+
+
+
+
+				<!-- Janela de confimacao para excluir -->
+				<p:confirmDialog global="true" showEffect="fade">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+
+					<p:commandButton value="Nao" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-check" />
+				</p:confirmDialog>
+			</p:panel>
+		</h:form>
+
+
+
+		<!-- Ao clicar no botao novo -->
+		<p:dialog header="Cadastrar de Cliente" widgetVar="dialogo"
+			resizable="false" modal="true">
+
+			<h:form id="formCadastro">
+				<h:panelGrid id="panelGridCadastro" columns="2">
+
+					<p:outputLabel for="clienteID" value="Nome: " />
+					<p:inputText id="clienteID" maxlength="50" size="30"
+						required="true" requiredMessage="O campo 'Nome' é Obrigatorio"
+						value="#{clienteBean.cliente.nome}" />
+
+					<p:outputLabel for="emailID" value="Email: " />
+					<p:inputText id="emailID" maxlength="50" size="30" required="true"
+						requiredMessage="O campo 'Email' é Obrigatorio"
+						value="#{clienteBean.cliente.email}" />
+
+					<p:outputLabel for="telefoneID" value="Telefone: " />
+					<p:inputMask id="telefoneID" mask="(99)9999-9999"
+						value="#{clienteBean.cliente.telefone}" required="true"
+						requiredMessage="O campo 'Telefone' é obrigatorio" />
+
+					<p:outputLabel for="cpfID" value="CPF: " />
+					<p:inputMask id="cpfID" mask="999.999.999-99" size="14"
+						required="true" requiredMessage="O campo 'CPF' é obrigatorio"
+						value="#{clienteBean.cliente.cpf}" />
+				</h:panelGrid>
+
+
+				<!-- Botoes -->
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{clienteBean.salvar}"
+						update=":mensagem :formCadastro:panelGridCadastro :formListagem:tabela" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+
+
+</ui:composition>

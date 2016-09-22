@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" template="/templates/modelo.xhtml">
+
+	<ui:define name="conteudo">
+		<center>
+			<h:form id="formCalendar">
+				<p:schedule value="#{horarioBean.scheduleModel}" id="schedule"
+					clientTimeZone="local" timeZone="GMT+2" axisFormat="HH:mm"
+					timeFormat="DD" rightHeaderTemplate="month">
+					<p:ajax event="dateSelect" listener="#{horarioBean.novo}"
+						oncomplete="PF('dialogo').show();"
+						update=":formularioCadastro:painel" />
+				</p:schedule>
+			</h:form>
+		</center>
+
+
+		<p:dialog header="Agendamento" draggable="false" modal="true"
+			resizable="false" closable="true" widgetVar="dialogo">
+
+			<h:form id="formularioCadastro">
+				<h:panelGrid id="painel" columns="2">
+
+					<p:outputLabel value="Data: " />
+					<p:calendar value="#{horarioBean.cliente.agenda.dataHoraInicio}"
+						pattern="dd/MM/yyyy HH:mm" effect="fold" required="true"
+						requiredMessage="O campo 'Data' é obrigatorio"/>
+					
+
+					<p:outputLabel for="clienteID" value="Cliente: " />
+					<p:selectOneMenu id="clienteID" filter="true" required="true"
+						requiredMessage="O campo 'Cliente' é obrigatorio"
+						value="#{horarioBean.cliente}"
+						converter="omnifaces.SelectItemsConverter">
+
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione um Cliente" />
+
+						<f:selectItems value="#{horarioBean.clientes}" var="cliente"
+							itemValue="#{cliente}"
+							itemLabel="#{cliente.nome} - #{cliente.cpf}" />
+					</p:selectOneMenu>
+
+
+
+
+					<p:outputLabel for="servicoID" value="Servico: " />
+					<p:selectOneMenu id="servicoID" filter="true"
+						converter="omnifaces.SelectItemsConverter" required="true"
+						requiredMessage="O campo 'Servico' é obrigatorio"
+						value="#{horarioBean.console}">
+
+						<f:selectItem itemLabel="Selecione o Servico" itemValue="" />
+						<f:selectItem itemLabel="Micro Pigmentação"
+							itemValue="Micro Pigmentação" />
+						<f:selectItem itemLabel="Designe de Sombrancelha"
+							itemValue="Designe de Sombrancelha" />
+						<f:selectItem itemLabel="Maquiagem" itemValue="Maquiagem" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+
+
+
+				<p:panelGrid columns="1">
+					<p:commandButton value="Salvar" oncomplete="PF('dialogo').hide();"
+						actionListener="#{horarioBean.salvar}"
+						update=":mensagem :formCalendar:schedule" />
+				</p:panelGrid>
+			</h:form>
+
+		</p:dialog>
+
+
+
+
+	</ui:define>
+</ui:composition>
