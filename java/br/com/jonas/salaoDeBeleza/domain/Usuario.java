@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Usuario extends Pessoa {
@@ -16,7 +17,7 @@ public class Usuario extends Pessoa {
 	@Column(length = 50)
 	private String login;
 
-	@Column(length = 8, unique = true)
+	@Column(name = "senha")
 	private String senha;
 
 	@Column(name = "Ativo")
@@ -52,6 +53,20 @@ public class Usuario extends Pessoa {
 
 	public void setCodigo(long codigo) {
 		this.codigo = codigo;
+	}
+	
+	// nao sera mapeado
+	@Transient
+	public String getAtivoFormatado() {
+		String ativoFormatado = null;
+
+		if (ativo) {
+			ativoFormatado = "Sim";
+		} else {
+			ativoFormatado = "Nao";
+		}
+
+		return ativoFormatado;
 	}
 	
 	
