@@ -16,9 +16,8 @@ public Usuario autenticar(String senha, String login){
 		
 		try {
 			Criteria consulta = sessao.createCriteria(Usuario.class);
-			consulta.createAlias("usuaria", "u");
-			
-			consulta.add(Restrictions.eq("u.login", login));
+		
+			consulta.add(Restrictions.eq("login", login));
 			
 			//criptografa
 			SimpleHash simpleHash = new SimpleHash("md5", senha);

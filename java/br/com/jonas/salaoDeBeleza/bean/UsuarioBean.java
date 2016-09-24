@@ -55,9 +55,10 @@ public class UsuarioBean implements Serializable {
 	public void listar() {
 		try {
 
-
 			 UsuarioDAO usuarioDAO = new UsuarioDAO();
 			 usuarios = usuarioDAO.listar();
+			
+			 
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao tentar listar Usuario");
 			e.printStackTrace();
@@ -91,6 +92,7 @@ public class UsuarioBean implements Serializable {
 			 usuarioDAO.merge(usuario);
 			 
 			 listar();
+			 novo();
 
 			Messages.addGlobalInfo("Usuario Armazenado com sucesso");
 		} catch (RuntimeException e) {

@@ -2,6 +2,7 @@ package br.com.jonas.salaoDeBeleza.bean;
 
 import java.io.IOException;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -18,7 +19,6 @@ public class LoginBean {
 	private Usuario usuario;
 	private Usuario usuarioLogado;
 	
-	
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -33,14 +33,20 @@ public class LoginBean {
 	}
 	
 	
+	@PostConstruct
+	public void iniciar(){
+		usuario = new Usuario();
+	}
+	
+	
 	public void autenticar(){
 		try {
-			
+				
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 		    usuarioLogado = usuarioDAO.autenticar(usuario.getSenha(), usuario.getLogin());
 		
 		    
-		    if (usuarioLogado == null) {
+		    if (usuarioLogado == null || usuarioLogado.getAtivo() == false) {
 				Messages.addGlobalError("Usuario ou Senha Invalidos");
 				return;
 			}
