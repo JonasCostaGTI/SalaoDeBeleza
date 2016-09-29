@@ -46,6 +46,9 @@
 		<mapping class="br.com.jonas.salaoDeBeleza.domain.Caixa" />
 		<mapping class="br.com.jonas.salaoDeBeleza.domain.Movimentacao" />
 		<mapping class="br.com.jonas.salaoDeBeleza.domain.Servico" />
+		<mapping class="br.com.jonas.salaoDeBeleza.domain.Venda" />
+		<mapping class="br.com.jonas.salaoDeBeleza.domain.ItemVenda" />
+		
 		
 		
 		
