@@ -1,18 +1,30 @@
 package br.com.jonas.salaoDeBeleza.bean;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
+import org.primefaces.component.datatable.DataTable;
 
+import br.com.jonas.salaoDeBeleza.dao.FabricanteDAO;
 import br.com.jonas.salaoDeBeleza.dao.ProdutoDAO;
 import br.com.jonas.salaoDeBeleza.domain.Fabricante;
 import br.com.jonas.salaoDeBeleza.domain.Produto;
+import br.com.jonas.salaoDeBeleza.util.HibernateUtil;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -51,13 +63,12 @@ public class ProdutoBean implements Serializable {
 		produto = new Produto();
 
 		try {
-			
+
 			FabricanteBean fabricanteBean = new FabricanteBean();
 			fabricantes = fabricanteBean.listarComRetorno();
-			
-//			FabricanteDAO fabricanteDAO = new FabricanteDAO();
-//			fabricantes = fabricanteDAO.listar();
 
+			// FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			// fabricantes = fabricanteDAO.listar();
 
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao tentar listar Fabricantes");
@@ -69,9 +80,9 @@ public class ProdutoBean implements Serializable {
 	@PostConstruct
 	public void listar() {
 		try {
-			
-			 ProdutoDAO produtoDAO = new ProdutoDAO();
-			 produtos = produtoDAO.listar();
+
+			ProdutoDAO produtoDAO = new ProdutoDAO();
+			produtos = produtoDAO.listar();
 
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao tentar listar Produtos");
@@ -86,8 +97,8 @@ public class ProdutoBean implements Serializable {
 	public List<Produto> listarComRetorno() {
 		try {
 
-			 ProdutoDAO produtoDAO = new ProdutoDAO();
-			 produtos = produtoDAO.listar();
+			ProdutoDAO produtoDAO = new ProdutoDAO();
+			produtos = produtoDAO.listar();
 
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao tentar listar Produtos");
@@ -101,9 +112,8 @@ public class ProdutoBean implements Serializable {
 	public void salvar() {
 		try {
 
-			 ProdutoDAO produtoDAO = new ProdutoDAO();
-			 Produto produtoRetorno = produtoDAO.merge(produto);
-
+			ProdutoDAO produtoDAO = new ProdutoDAO();
+			Produto produtoRetorno = produtoDAO.merge(produto);
 
 			novo();
 			produtos = listarComRetorno();
@@ -123,8 +133,8 @@ public class ProdutoBean implements Serializable {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
-			// FabricanteDAO fabricanteDAO = new FabricanteDAO();
-			// fabricantes = fabricanteDAO.listar("descricao");
+			FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			fabricantes = fabricanteDAO.listar("descricao");
 
 			FabricanteBean fabricanteBean = new FabricanteBean();
 			fabricantes = fabricanteBean.listarComRetorno();
@@ -139,12 +149,11 @@ public class ProdutoBean implements Serializable {
 	public void excluir(ActionEvent evento) {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-			
 
-			 ProdutoDAO produtoDAO = new ProdutoDAO();
-			 produtoDAO.excluir(produto);
-			 
-			 produtos = listarComRetorno();
+			ProdutoDAO produtoDAO = new ProdutoDAO();
+			produtoDAO.excluir(produto);
+
+			produtos = listarComRetorno();
 
 			Messages.addFlashGlobalInfo("Produto excluido com sucesso");
 		} catch (RuntimeException e) {
@@ -154,51 +163,54 @@ public class ProdutoBean implements Serializable {
 
 	}
 
-//	public void imprimir() {
-//
-//		try {
-//			// idFormulario:idComponente
-//			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent("formListagem:tabela");
-//			Map<String, Object> filtros = tabela.getFilters();
-//
-//			String produtoDescricao = (String) filtros.get("descricao");
-//			String fabricanteDescricao = (String) filtros.get("fabricante.decricao");
-//
-//			String caminho = Faces.getRealPath("/reports/produtos.jasper");
-//			Map<String, Object> parametros = new HashMap<>();
-//
-//			String imagePath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/images/drugstore.png");
-//			
-//			parametros.put("LOGO", imagePath);
-//			
-//			if (produtoDescricao == null) {
-//				parametros.put("Produto_descricao", "%%");
-//			} else {
-//				// parametros no jasper.jrxml
-//				parametros.put("Produto_descricao", "%" + produtoDescricao + "%");
-//			}
-//
-//			if (fabricanteDescricao == null) {
-//				parametros.put("Fabricante_descricao", "%%");
-//			} else {
-//				parametros.put("Fabricante_descricao", "%" + fabricanteDescricao + "%");
-//			}
-//
-//			Connection conexao = HibernateUtil.getConexao();
-//
-//			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
-//					
-//			JasperPrintManager.printReport(relatorio, true);
-//			
-//			
-//			
-//			
-//
-//		} catch (JRException e) {
-//			Messages.addGlobalError("Ocorreu um erro ao tentar gerar relatorio");
-//			e.printStackTrace();
-//		} 
-//
-//	}
+	 public void imprimir() {
+	
+	 try {
+	 // idFormulario:idComponente
+	 DataTable tabela = (DataTable)
+	 Faces.getViewRoot().findComponent("formListagem:tabela");
+	 Map<String, Object> filtros = tabela.getFilters();
+	
+	 String produtoDescricao = (String) filtros.get("descricao");
+	 String fabricanteDescricao = (String) filtros.get("fabricante.decricao");
+	
+	 String caminho = Faces.getRealPath("/reports/produtos.jasper");
+	 Map<String, Object> parametros = new HashMap<>();
+	
+	 String imagePath =
+	 FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/images/drugstore.png");
+	
+	 parametros.put("LOGO", imagePath);
+	
+	 if (produtoDescricao == null) {
+	 parametros.put("Produto_descricao", "%%");
+	 } else {
+	 // parametros no jasper.jrxml
+	 parametros.put("Produto_descricao", "%" + produtoDescricao + "%");
+	 }
+	
+	 if (fabricanteDescricao == null) {
+	 parametros.put("Fabricante_descricao", "%%");
+	 } else {
+	 parametros.put("Fabricante_descricao", "%" + fabricanteDescricao + "%");
+	 }
+	
+	 Connection conexao = HibernateUtil.getConexao();
+	
+	 JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros,
+	 conexao);
+	
+	 JasperPrintManager.printReport(relatorio, true);
+	
+	
+	
+	
+	
+	 } catch (JRException e) {
+	 Messages.addGlobalError("Ocorreu um erro ao tentar gerar relatorio");
+	 e.printStackTrace();
+	 }
+	
+	 }
 
 }
