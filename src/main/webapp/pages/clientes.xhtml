@@ -49,18 +49,22 @@
 					<p:column headerText="Opcoes: " width="100">
 
 						<!-- botao excluir -->
-						<p:commandButton icon="ui-icon-trash">
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{clienteBean.excluir}"
+							update=":mensagem :formListagem:tabela">
 
 							<p:confirm header="Confirmacao" message="Deseja excluir?"
 								icon="ui-icon-alert" />
 
-							<f:attribute name="clienteSelecionado" value="" />
+							<f:attribute name="clienteSelecionado" value="#{cliente}" />
 						</p:commandButton>
 
 
 
 						<!-- botao editar -->
 						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{clienteBean.editar}"
+							update=":mensagem :formCadastro:panelGridCadastro"
 							oncomplete="PF('dialogo').show();">
 
 							<!-- reset do ajax -->
@@ -68,7 +72,7 @@
 								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 
 							<!-- pega cidade selecionada e envia para o bean -->
-							<f:attribute name="clienteSelecionado" value="" />
+							<f:attribute name="clienteSelecionado" value="#{cliente}" />
 						</p:commandButton>
 
 					</p:column>

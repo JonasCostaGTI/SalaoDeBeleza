@@ -6,11 +6,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
 import br.com.jonas.salaoDeBeleza.dao.ClienteDAO;
-import br.com.jonas.salaoDeBeleza.dao.ServicoDAO;
 import br.com.jonas.salaoDeBeleza.domain.Agenda;
 import br.com.jonas.salaoDeBeleza.domain.Cliente;
 import br.com.jonas.salaoDeBeleza.domain.Servico;
@@ -97,6 +97,30 @@ public class ClienteBean implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	//editar
+	public void editar(ActionEvent evento) {
+		cliente = (Cliente) evento.getComponent().getAttributes().get("clienteSelecionado");
+		
+	}
+	
+	//excluir
+	public void excluir(ActionEvent evento) {
+		try {
+			cliente =  (Cliente) evento.getComponent().getAttributes().get("clienteSelecionado");
+			
+			ClienteDAO clienteDAO = new ClienteDAO();
+			clienteDAO.excluir(cliente);
+			
+			clientes = clienteDAO.listar();
+			Messages.addFlashGlobalInfo("Cliente excluido com sucesso");
+		} catch (RuntimeException e) {
+			Messages.addFlashGlobalError("Erro ao tentar excluir cliente");
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 
 }
