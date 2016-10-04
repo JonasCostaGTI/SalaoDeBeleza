@@ -25,8 +25,8 @@
 			<h:form id="formMenu">
 
 				<p:menubar>
-					<p:submenu label="Arquivo">
-						<p:menuitem value="Sair" />
+					<p:submenu label="Opções">
+						<p:menuitem value="Sair" actionListener="#{loginBean.logout}"/>
 					</p:submenu>
 
 					<p:submenu label="Cadastro">
@@ -45,9 +45,6 @@
 						<p:menuitem value="Calendario" url="/pages/horarios.xhtml" />
 					</p:submenu>
 
-					<p:submenu label="Movimentações">
-						<p:menuitem value="Venda" />
-					</p:submenu>
 					<p:submenu label="Ajuda">
 						<p:menuitem value="Sobre" />
 					</p:submenu>
