@@ -56,8 +56,16 @@ public class LoginBean {
 			Messages.addGlobalError("Ocorreu algum erro ao tentar redirecionar");
 			e.printStackTrace();
 		}
-	
-	
-
 }
+	
+	
+	public void logout(){
+		usuarioLogado = null;
+		try {
+			Faces.redirect("./pages/login.xhtml");
+		} catch (IOException e) {
+			Messages.addGlobalError("Ocorreu algum erro ao efetuar o Logout");
+			e.printStackTrace();
+		}
+	}
 }
