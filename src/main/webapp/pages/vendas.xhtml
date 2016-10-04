@@ -144,7 +144,7 @@
 							itemLabel="Selecione um Funcionario" />
 						<f:selectItems value="#{vendaBean.funcionarios}" var="funcionario"
 							itemValue="#{funcionario}"
-							itemLabel="#{funcionario.pessoa.nome} - #{funcionario.pessoa.cpf}" />
+							itemLabel="#{funcionario.nome} - #{funcionario.cpf}" />
 					</p:selectOneMenu>
 
 					<p:outputLabel for="clienteID" value="Cliente: " />
@@ -156,7 +156,7 @@
 							itemLabel="Selecione um Cliente" />
 						<f:selectItems value="#{vendaBean.clientes}" var="cliente"
 							itemValue="#{cliente}"
-							itemLabel="#{cliente.pessoa.nome} - #{cliente.pessoa.cpf}" />
+							itemLabel="#{cliente.nome} - #{cliente.cpf}" />
 					</p:selectOneMenu>
 
 

@@ -78,7 +78,7 @@ public class VendaBean implements Serializable {
 			itemVendas = new ArrayList<>();
 			
 			ProdutoDAO produtoDAO = new ProdutoDAO();
-			produtos = produtoDAO.listar("descricao");
+			produtos = produtoDAO.listar();
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("erro ao tentar carregar a tela de vendas");
 			e.printStackTrace();
