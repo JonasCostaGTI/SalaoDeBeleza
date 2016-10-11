@@ -27,6 +27,7 @@
 				<p:menubar>
 					<p:submenu label="Opções">
 						<p:menuitem value="Sair" actionListener="#{loginBean.logout}"/>
+						<p:menuitem value="Inicio" url="/pages/principal.xhtml"/>
 					</p:submenu>
 
 					<p:submenu label="Cadastro">
@@ -45,8 +46,8 @@
 						<p:menuitem value="Calendario" url="/pages/horarios.xhtml" />
 					</p:submenu>
 
-					<p:submenu label="Ajuda">
-						<p:menuitem value="Sobre" />
+					<p:submenu label="Informações">
+						<p:menuitem value="Sobre" url="/pages/sobre.xhtml" />
 					</p:submenu>
 				</p:menubar>
 			</h:form>
