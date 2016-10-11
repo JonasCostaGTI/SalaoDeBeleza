@@ -6,12 +6,27 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui" 
-	template="/templates/modelo.xhtml">
+	xmlns:p="http://primefaces.org/ui" template="/templates/modelo.xhtml">
 
 	<ui:define name="conteudo">
 		<h:outputText
 			value="Bem vindo ao Sistema de Gerenciamento Salão de Beleza" />
+
+		<p:accordionPanel>
+			<p:tab title="Imagens">
+				<p:imageSwitch effect="fade" id="fadeEffect">
+					<ui:repeat value="#{imagesBean.images}" var="image"
+						id="fadeEffectImages">
+						<p:graphicImage value="/resources/images/#{image}" id="image" />
+					</ui:repeat>
+				</p:imageSwitch>
+			</p:tab>
+		</p:accordionPanel>
+
+
+
+		<p:imageCompare leftImage="/resources/images/IMG_8735.JPG"
+			rightImage="/resources/images/IMG_8736.JPG" width="450" height="435" />
 
 	</ui:define>
 
