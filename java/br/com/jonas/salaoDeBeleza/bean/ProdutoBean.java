@@ -163,54 +163,55 @@ public class ProdutoBean implements Serializable {
 
 	}
 
-	 public void imprimir() {
-	
-	 try {
-	 // idFormulario:idComponente
-	 DataTable tabela = (DataTable)
-	 Faces.getViewRoot().findComponent("formListagem:tabela");
-	 Map<String, Object> filtros = tabela.getFilters();
-	
-	 String produtoDescricao = (String) filtros.get("descricao");
-	 String fabricanteDescricao = (String) filtros.get("fabricante.decricao");
-	
-	 String caminho = Faces.getRealPath("/reports/produtos.jasper");
-	 Map<String, Object> parametros = new HashMap<>();
-	
-	 String imagePath =
-	 FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/images/drugstore.png");
-	
-	 parametros.put("LOGO", imagePath);
-	
-	 if (produtoDescricao == null) {
-	 parametros.put("Produto_descricao", "%%");
-	 } else {
-	 // parametros no jasper.jrxml
-	 parametros.put("Produto_descricao", "%" + produtoDescricao + "%");
-	 }
-	
-	 if (fabricanteDescricao == null) {
-	 parametros.put("Fabricante_descricao", "%%");
-	 } else {
-	 parametros.put("Fabricante_descricao", "%" + fabricanteDescricao + "%");
-	 }
-	
-	 Connection conexao = HibernateUtil.getConexao();
-	
-	 JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros,
-	 conexao);
-	
-	 JasperPrintManager.printReport(relatorio, true);
-	
-	
-	
-	
-	
-	 } catch (JRException e) {
-	 Messages.addGlobalError("Ocorreu um erro ao tentar gerar relatorio");
-	 e.printStackTrace();
-	 }
-	
-	 }
+	public void imprimir() {
+
+		try {
+			// idFormulario:idComponente
+			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent("formListagem:tabela");
+			Map<String, Object> filtros = tabela.getFilters();
+
+			String produtoDescricao = (String) filtros.get("descricao");
+			String fabricanteNome = (String) filtros.get("fabricante.nome");
+			String fabricanteDescricao = (String) filtros.get("fabricante.decricao");
+
+			String caminho = Faces.getRealPath("/reports/produtos.jasper");
+			Map<String, Object> parametros = new HashMap<>();
+
+			 String imagePath =
+			 FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/images/natalia_coelho.png");
+			
+			 parametros.put("LOGO", imagePath);
+
+			if (produtoDescricao == null) {
+				parametros.put("PRODUTO_DESCRICAO", "%%");
+			} else {
+				// parametros no jasper.jrxml
+				parametros.put("PRODUTO_DESCRICAO", "%" + produtoDescricao + "%");
+			}
+
+			if (fabricanteDescricao == null) {
+				parametros.put("FABRICANTE_DESCRICAO", "%%");
+			} else {
+				parametros.put("FABRICANTE_DESCRICAO", "%" + fabricanteDescricao + "%");
+			}
+
+			if (fabricanteNome == null) {
+				parametros.put("FABRICANTE_NOME", "%%");
+			} else {
+				parametros.put("FABRICANTE_NOME", "%" + fabricanteNome + "%");
+			}
+
+			Connection conexao = HibernateUtil.getConexao();
+
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
+
+			JasperPrintManager.printReport(relatorio, true);
+
+		} catch (JRException e) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar relatorio");
+			e.printStackTrace();
+		}
+
+	}
 
 }
