@@ -15,7 +15,7 @@ public class ImagesBean {
 	public void init() {
 		images = new ArrayList<String>();
 		for (int i = 1; i <= 6; i++) {
-			images.add("nature" + i + ".jpg");
+			images.add("nature" + i + ".png");
 		}
 	}
 

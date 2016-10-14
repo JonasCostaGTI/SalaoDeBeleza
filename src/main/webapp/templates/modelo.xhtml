@@ -18,40 +18,49 @@
 	<div id="geral">
 
 		<div id="topo" class="divTopo">
-			<p:graphicImage library="images" name="natalia_coelho.png"/>
+			<center>
+				<p:graphicImage library="images" name="natalia_coelho.png" />
+			</center>
 		</div>
+
 
 		<div id="cabecalho" class="divCabecalho">
+
 			<h:form id="formMenu">
 
+
 				<p:menubar>
-					<p:submenu label="Opções">
-						<p:menuitem value="Sair" actionListener="#{loginBean.logout}"/>
-						<p:menuitem value="Inicio" url="/pages/principal.xhtml"/>
-					</p:submenu>
-
-					<p:submenu label="Cadastro">
-						<p:menuitem value="Fabricante" url="/pages/fabricantes.xhtml" />
-						<p:menuitem value="Produto" url="/pages/produtos.xhtml"/>
-						<p:menuitem value="Cliente" url="/pages/clientes.xhtml" />
-						<p:menuitem value="Funcionário"  url="/pages/funcionario.xhtml"/>
-						<p:menuitem value="Usuário" url="/pages/usuarios.xhtml"/>
-					</p:submenu>
-
-					<p:submenu label="Vendas">
-						<p:menuitem value="Venda Produto" url="/pages/vendas.xhtml" />
-					</p:submenu>
 					
-					<p:submenu label="Agendamento de Servico">
-						<p:menuitem value="Calendario" url="/pages/horarios.xhtml" />
-					</p:submenu>
+						<p:submenu label="Opções">
+							<p:menuitem value="Sair" actionListener="#{loginBean.logout}" />
+							<p:menuitem value="Inicio" url="/pages/principal.xhtml" />
+						</p:submenu>
 
-					<p:submenu label="Informações">
-						<p:menuitem value="Sobre" url="/pages/sobre.xhtml" />
-					</p:submenu>
+						<p:submenu label="Cadastro">
+							<p:menuitem value="Fabricante" url="/pages/fabricantes.xhtml" />
+							<p:menuitem value="Produto" url="/pages/produtos.xhtml" />
+							<p:menuitem value="Cliente" url="/pages/clientes.xhtml" />
+							<p:menuitem value="Funcionário" url="/pages/funcionario.xhtml" />
+							<p:menuitem value="Usuário" url="/pages/usuarios.xhtml" />
+						</p:submenu>
+
+						<p:submenu label="Vendas">
+							<p:menuitem value="Venda Produto" url="/pages/vendas.xhtml" />
+						</p:submenu>
+
+						<p:submenu label="Agendamento de Servico">
+							<p:menuitem value="Calendario" url="/pages/horarios.xhtml" />
+						</p:submenu>
+
+						<p:submenu label="Informações">
+							<p:menuitem value="Sobre" url="/pages/sobre.xhtml" />
+						</p:submenu>
+					
 				</p:menubar>
+
 			</h:form>
 		</div>
+
 
 		<div id="conteudo">
 			<ui:insert name="conteudo" />

@@ -9,25 +9,60 @@
 	xmlns:p="http://primefaces.org/ui" template="/templates/modelo.xhtml">
 
 	<ui:define name="conteudo">
-		<h:outputText
-			value="Bem vindo ao Sistema de Gerenciamento Salão de Beleza" />
+		<p:fieldset legend="Meus Trabalhos" style="margin-bottom:20px">
+			<h:panelGrid columns="2" cellpadding="5">
 
-		<p:accordionPanel>
-			<p:tab title="Imagens">
-				<p:imageSwitch effect="fade" id="fadeEffect">
-					<ui:repeat value="#{imagesBean.images}" var="image"
-						id="fadeEffectImages">
-						<p:graphicImage value="/resources/images/#{image}" id="image" />
-					</ui:repeat>
-				</p:imageSwitch>
-			</p:tab>
-		</p:accordionPanel>
+				<p:galleria value="#{imagesBean.images}" var="image"
+					panelWidth="500" panelHeight="313" showCaption="false">
+					<p:graphicImage value="/resources/images/#{image}"
+						alt="Image Description for #{image}" title="#{image}" />
+				</p:galleria>
+
+				<h:outputText
+					value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
+                but given to ruthless violence whenever anything stands against the good of the family." />
+
+
+			</h:panelGrid>
+		</p:fieldset>
+
+		<p:separator />
+
+
+		<p:fieldset legend="Resultados" style="margin-bottom:20px">
+			<h:panelGrid columns="2" cellpadding="5">
+
+				<p:imageCompare leftImage="/resources/images/IMG_8735.JPG"
+					rightImage="/resources/images/IMG_8736.JPG" width="450"
+					height="435" />
+
+				<h:outputText
+					value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
+                but given to ruthless violence whenever anything stands against the good of the family." />
 
 
 
-		<p:imageCompare leftImage="/resources/images/IMG_8735.JPG"
-			rightImage="/resources/images/IMG_8736.JPG" width="450" height="435" />
+			</h:panelGrid>
+		</p:fieldset>
 
+
+		<center>
+			
+			<h:outputText value="Desenvolvido por: Jonas Costa / Mateus Rose"/>
+		
+				<h:outputText value="Informações de Contato:"/> 
+				
+				<a href="mailto:jonas.costa1987@gmail.com">
+					jonas.costa1987@gmail.com</a> / <a
+					href="mailto:matheusroses@outlook.com">
+					matheusroses@outlook.com</a>
+		
+			
+		</center>
 	</ui:define>
 
 
