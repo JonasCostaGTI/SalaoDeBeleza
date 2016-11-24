@@ -2,6 +2,7 @@ package br.com.jonas.salaoDeBeleza.domain;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class Produto {
 	@Column(precision = 6, scale = 2) // 6 digitos e 2 depois// da virgula
 	private BigDecimal preco;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn
 	private Fabricante fabricante;
 

@@ -2,6 +2,7 @@ package br.com.jonas.salaoDeBeleza.domain;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+
 
 
 
@@ -25,13 +28,13 @@ public class ItemVenda {
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal valorParcial;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(nullable = false)
 	private Produto produto;
 	
 	
 	// e agora? Venda ou Funcionario?
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(nullable = false)
 	private Venda venda;
 

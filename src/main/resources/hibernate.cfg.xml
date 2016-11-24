@@ -32,7 +32,7 @@
 		<!-- Cria as tabelas do banco de dados -->
 		<!-- (update, create, validate) Para criar novas tabelas e nao apagar as 
 			existentes = update -->
-		<property name="hbm2ddl.auto">update</property>
+		<property name="hbm2ddl.auto">validate</property>
 
 
 		<!-- Classes a serem mapeadas (tem que ter se nao nao cria no banco) -->
